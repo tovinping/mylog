@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import BlurImage from '../blur-image';
 import { UserProps } from '@/lib/api/user';
 import { CheckInCircleIcon } from '@/components/icons';
 
@@ -11,12 +10,6 @@ export default function DirectoryResults({ users }: { users: UserProps[] }) {
           <Link href={`/${user.username}`}>
               <div className="relative px-6 py-4 flex items-center space-x-3 focus-within:ring-0">
                 <div className="flex-shrink-0 h-12 w-12 rounded-full overflow-hidden">
-                  <BlurImage
-                    src={user.image}
-                    alt={user.name}
-                    width={300}
-                    height={300}
-                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   {/* Extend touch target to entire panel */}
