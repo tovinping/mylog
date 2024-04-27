@@ -231,9 +231,7 @@ export default function Profile({
             )}
           </button>
           <Link href={`/${user.username}`} shallow replace scroll={false}>
-            <a className="rounded-full border border-gray-800 hover:border-white w-12 h-12 flex justify-center items-center transition-all">
               <XIcon className="h-4 w-4 text-white" />
-            </a>
           </Link>
         </div>
       ) : session?.username === user.username ? (
@@ -244,9 +242,7 @@ export default function Profile({
           replace
           scroll={false}
         >
-          <a className="fixed bottom-10 right-10 rounded-full border bg-black border-gray-800 hover:border-white w-12 h-12 flex justify-center items-center transition-all">
             <EditIcon className="h-4 w-4 text-white" />
-          </a>
         </Link>
       ) : null}
     </div>
