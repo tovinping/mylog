@@ -3,7 +3,6 @@ import { getGradient } from '@/lib/gradients';
 export const profileWidth = 'max-w-5xl mx-auto px-4 sm:px-6 lg:px-8';
 
 export default function Profile({ user }: { user: UserProps }) {
-
   return (
     <div className="min-h-screen pb-20">
       <div

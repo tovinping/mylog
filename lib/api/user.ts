@@ -2,7 +2,6 @@ import clientPromise from '@/lib/mongodb';
 import { remark } from 'remark';
 import remarkMdx from 'remark-mdx';
 import { serialize } from 'next-mdx-remote/serialize';
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 export interface UserProps {
   name: string;
@@ -10,7 +9,6 @@ export interface UserProps {
   email: string;
   image: string;
   bio: string;
-  bioMdx: MDXRemoteSerializeResult<Record<string, unknown>>;
   followers: number;
   verified: boolean;
 }
@@ -36,11 +34,6 @@ export async function getMdxSource(postContents: string) {
   return mdxSource;
 }
 
-export const placeholderBio = `
-Tincidunt quam neque in cursus viverra orci, dapibus nec tristique. Nullam ut sit dolor consectetur urna, dui cras nec sed. Cursus risus congue arcu aenean posuere aliquam.
-
-Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.`;
-
 export async function getUser(username: string): Promise<UserProps | null> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
@@ -51,7 +44,6 @@ export async function getUser(username: string): Promise<UserProps | null> {
   if (results) {
     return {
       ...results,
-      bioMdx: await getMdxSource(results.bio || placeholderBio)
     };
   } else {
     return null;
@@ -70,7 +62,6 @@ export async function getFirstUser(): Promise<UserProps | null> {
   if (results) {
     return {
       ...results,
-      bioMdx: await getMdxSource(results.bio || placeholderBio)
     };
   } else {
     return null;
