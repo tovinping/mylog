@@ -4,7 +4,6 @@ import {
   CheckInCircleIcon,
   CheckIcon,
   EditIcon,
-  GitHubIcon,
   LoadingDots,
   UploadIcon,
   XIcon
@@ -130,31 +129,6 @@ export default function Profile({
                 <CheckInCircleIcon className="w-6 h-6 text-[#0070F3]" />
               )}
             </div>
-            {user.verified ? (
-              <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                <a
-                  href={`https://github.com/${user.username}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex justify-center px-4 py-2 border border-gray-800 hover:border-white shadow-sm text-sm font-medium rounded-md text-white font-mono bg-black focus:outline-none focus:ring-0 transition-all"
-                >
-                  <GitHubIcon className="mr-3 h-5 w-5 text-white" />
-                  <span>View GitHub Profile</span>
-                </a>
-              </div>
-            ) : (
-              <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                <a
-                  href="https://github.com/vercel/mongodb-starter"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex justify-center px-4 py-2 border border-gray-800 hover:border-white shadow-sm text-sm font-medium rounded-md text-white font-mono bg-black focus:outline-none focus:ring-0 transition-all"
-                >
-                  <GitHubIcon className="mr-3 h-5 w-5 text-white" />
-                  <span>Demo Account</span>
-                </a>
-              </div>
-            )}
           </div>
         </div>
       </div>

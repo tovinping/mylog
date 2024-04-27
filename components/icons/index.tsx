@@ -8,5 +8,4 @@ export { default as CheckIcon } from './check';
 export { default as EditIcon } from './edit';
 export { default as UploadIcon } from './upload';
 export { default as DirectoryIcon } from './directory';
-export { default as GitHubIcon } from './github';
 export { default as AlertCircleIcon } from './alert-circle';
