@@ -1,5 +1,4 @@
 import { useState, ReactNode } from 'react';
-import Sidebar from './sidebar';
 import Directory from './directory';
 import { ResultProps } from '@/lib/api/user';
 import Meta, { MetaProps } from '@/components/layout/meta';
@@ -24,7 +23,6 @@ export default function Layout({
 }) {
   const router = useRouter();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (router.isFallback) {
     return (
@@ -42,12 +40,6 @@ export default function Layout({
   return (
     <div className="w-full mx-auto h-screen flex overflow-hidden bg-black">
       <Meta props={meta} />
-      <Sidebar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        results={results}
-        totalUsers={totalUsers}
-      />
 
       <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
         <div className="flex-1 relative z-0 flex overflow-hidden">
