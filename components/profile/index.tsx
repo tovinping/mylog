@@ -10,6 +10,9 @@ export default function Profile({ user }: { user: UserProps }) {
           ${getGradient(user.username)}`}
       />
       <h1 className="text-2xl font-semibold text-white truncate">我是标题</h1>
+      <section>
+        <p  className="text-2xl font-semibold text-white truncate">我是内容</p>
+      </section>
     </div>
   );
 }

@@ -3,8 +3,9 @@ import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 import { useDebounce } from '@/lib/hooks/use-debounce';
 import { useState } from 'react';
-import { SearchIcon } from '@/components/icons';
+import { EditIcon, SearchIcon } from '@/components/icons';
 import DirectoryResults from './directory-results';
+import style from './directory.module.scss'
 
 export default function Directory({
   results,
@@ -26,9 +27,12 @@ export default function Directory({
   return (
     <aside className="flex-shrink-0 w-full bg-black sm:w-96 h-full overflow-scroll border-r border-gray-800">
       <div className="px-6 pt-6 pb-0 sticky top-0 bg-black z-20">
-        <p className="mt-2 text-sm text-dark-accent-5">
-          共有{Intl.NumberFormat('en-us').format(totalUsers)}条数据
+        <div className={style.container}>
+        <p>
+          共有{totalUsers}条数据
         </p>
+        <EditIcon className={style.editorIcon} />
+        </div>
         <form className="py-8 flex space-x-4" action="#">
           <div className="flex-1 min-w-0">
             <div className="relative shadow-sm border-0 border-b-dark-accent-2 rounded-none border-b-[1px] ">
