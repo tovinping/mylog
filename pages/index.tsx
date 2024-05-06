@@ -4,12 +4,25 @@ import {
   getAllUsers,
   UserProps,
   getUserCount,
-  getFirstUser
+  getFirstUser,
+  ResultProps
 } from '@/lib/api/user';
 import { defaultMetaProps } from '@/components/layout/meta';
+import style from './index.module.scss'
+import { Logs } from '@/components/logs';
 
-export default function Home({ user }: { user: UserProps }) {
-  return <Profile user={user} />;
+export default function Home({ user, results }: { user: UserProps, results: ResultProps[] }) {
+  return <div className={style.home}>
+    <div className={style.title}>
+      <span>菜单</span>
+      <div>
+        <span>搜索</span>
+        <span>更多</span>
+      </div>
+    </div>
+    <p>全部日志</p>
+    <Logs users={results.map(item => item.users).flat(1)} />
+  </div>
 }
 
 export const getStaticProps: GetStaticProps = async () => {

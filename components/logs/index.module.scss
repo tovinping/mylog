@@ -1,0 +1,27 @@
+.list {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  background-color: black;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 2vw 0;
+  background-color: #ddd;
+  border-radius: 2vw;
+  margin-top: 4vw;
+  padding: 4vw;
+  img{
+    border-radius: 1vw;
+  }
+}
+
+.des {
+  color: red;
+}
+
+.title {
+  color: blue;
+}

@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -37,7 +37,7 @@ dependencies:
     version: 6.5.0
   next:
     specifier: 13.1.1
-    version: 13.1.1(react-dom@18.2.0)(react@18.2.0)
+    version: 13.1.1(react-dom@18.2.0)(react@18.2.0)(sass@1.76.0)
   next-auth:
     specifier: ^4.3.1
     version: 4.3.4(react-dom@18.2.0)(react@18.2.0)
@@ -59,6 +59,9 @@ dependencies:
   remark-mdx:
     specifier: ^2.1.1
     version: 2.1.1
+  sass:
+    specifier: ^1.76.0
+    version: 1.76.0
   swr:
     specifier: ^2.2.5
     version: 2.2.5(react@18.2.0)
@@ -1024,7 +1027,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.5.1(eslint@8.17.0)
       eslint-plugin-react: 7.30.0(eslint@8.17.0)
       eslint-plugin-react-hooks: 4.5.0(eslint@8.17.0)
-      next: 13.1.1(react-dom@18.2.0)(react@18.2.0)
+      next: 13.1.1(react-dom@18.2.0)(react@18.2.0)(sass@1.76.0)
       typescript: 4.7.3
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
@@ -1533,6 +1536,9 @@ packages:
     resolution: {integrity: sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /immutable@4.3.5:
+    resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -2319,7 +2325,7 @@ packages:
       - supports-color
     dev: false
 
-  /next@13.1.1(react-dom@18.2.0)(react@18.2.0):
+  /next@13.1.1(react-dom@18.2.0)(react@18.2.0)(sass@1.76.0):
     resolution: {integrity: sha512-R5eBAaIa3X7LJeYvv1bMdGnAVF4fVToEjim7MkflceFPuANY3YyvFxXee/A+acrSYwYPvOvf7f6v/BM/48ea5w==}
     engines: {node: '>=14.6.0'}
     hasBin: true
@@ -2343,6 +2349,7 @@ packages:
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      sass: 1.76.0
       styled-jsx: 5.1.1(react@18.2.0)
     optionalDependencies:
       '@next/swc-android-arm-eabi': 13.1.1
@@ -2803,6 +2810,15 @@ packages:
     dependencies:
       mri: 1.2.0
     dev: false
+
+  /sass@1.76.0:
+    resolution: {integrity: sha512-nc3LeqvF2FNW5xGF1zxZifdW3ffIz5aBb7I7tSvOoNu7z1RQ6pFt9MBuiPtjgaI62YWrM/txjWlOCFiGtf2xpw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.5
+      source-map-js: 1.0.2
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
