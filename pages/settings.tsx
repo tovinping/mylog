@@ -5,7 +5,8 @@ import { getUser, getAllUsers, UserProps, getUserCount } from '@/lib/api/user';
 import { getSession } from 'next-auth/react';
 
 export default function Settings({ user }: { user: UserProps }) {
-  return <Profile settings={true} user={user} />;
+  // return <Profile settings={true} user={user} />;
+  return <div></div>
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
