@@ -1,17 +1,18 @@
 import { GetStaticProps } from 'next';
-import Profile from '@/components/profile';
 import {
   getAllUsers,
   UserProps,
   getUserCount,
-  getFirstUser,
   ResultProps
 } from '@/lib/api/user';
 import { defaultMetaProps } from '@/components/layout/meta';
 import style from './index.module.scss'
 import { Logs } from '@/components/logs';
+import { EditIcon } from '@/components/icons';
+import { useState } from 'react';
 
-export default function Home({ user, results }: { user: UserProps, results: ResultProps[] }) {
+export default function Home({ results }: { user: UserProps, results: ResultProps[] }) {
+  const [isEdit, setEdit] = useState(false)
   return <div className={style.home}>
     <div className={style.title}>
       <span>菜单</span>
@@ -22,6 +23,9 @@ export default function Home({ user, results }: { user: UserProps, results: Resu
     </div>
     <p>全部日志</p>
     <Logs users={results.map(item => item.users).flat(1)} />
+    <div className={style.edit} onClick={() => setEdit(true)}>
+      <EditIcon />
+    </div>
   </div>
 }
 
@@ -29,14 +33,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
-  const firstUser = await getFirstUser();
 
   return {
     props: {
       meta: defaultMetaProps,
       results,
       totalUsers,
-      user: firstUser
     },
     revalidate: 10
   };
