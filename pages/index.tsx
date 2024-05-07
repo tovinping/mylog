@@ -9,7 +9,6 @@ import { defaultMetaProps } from '@/components/layout/meta';
 import style from './index.module.scss'
 import { Logs } from '@/components/logs';
 import { EditIcon } from '@/components/icons';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Home({ results }: { user: UserProps, results: ResultProps[] }) {
