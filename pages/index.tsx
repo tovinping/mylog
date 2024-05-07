@@ -7,7 +7,7 @@ import {
 } from '@/lib/api/user';
 import { defaultMetaProps } from '@/components/layout/meta';
 import style from './index.module.scss'
-import { Logs } from '@/components/logs';
+import { LogList } from '@/components/logList';
 import { EditIcon } from '@/components/icons';
 import { useRouter } from 'next/router';
 
@@ -22,7 +22,7 @@ export default function Home({ results }: { user: UserProps, results: ResultProp
       </div>
     </div>
     <p>全部日志</p>
-    <Logs users={results.map(item => item.users).flat(1)} />
+    <LogList users={results.map(item => item.users).flat(1)} />
     <div className={style.edit} onClick={() => router.push('/editor')}>
       <EditIcon />
     </div>

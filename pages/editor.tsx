@@ -1,25 +1,27 @@
 import { GetStaticProps } from 'next'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useRef } from 'react'
 import classnames from 'classnames'
 import { defaultMetaProps } from '@/components/layout/meta';
 
 import style from './editor.module.scss'
-import { useRouter } from 'next/router';
-const temp = `
-5.5
-5.5.1
-5.5.2
-`
-export default function Editor({ onPublish }: { onPublish: (data: string) => void }) {
+import fetcher from '@/lib/fetcher';
+const temp = `测试数据`
+export default function Editor() {
   const router = useRouter()
   const inputRef = useRef<HTMLTextAreaElement>(null)
   useEffect(() => {
     if (!inputRef.current) return;
     inputRef.current.value = temp
   }, [])
+  // const { data: searchedUsers } = useSWR<UserProps[] | null>(
+  //   `api/user`,
+  //   fetcher,
+  // );
   const handPublish = useCallback(() => {
     if (!inputRef.current) return;
-    console.log(inputRef.current.value)
+    const content = inputRef.current.value
+    fetcher('/api/user', { method: "PUT", body: JSON.stringify({ content}), headers: { 'Content-Type': 'application/json' }})
     router.back()
   }, [router])
   return (<div className={classnames(style.editor)}>
@@ -35,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const meta = {
     ...defaultMetaProps,
-    title: `Settings | MongoDB Starter Kit`
+    title: "编辑日志"
   };
   return {
     props: {

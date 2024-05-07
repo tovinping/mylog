@@ -1,37 +1,21 @@
 import clientPromise from '@/lib/mongodb';
-import { remark } from 'remark';
-import remarkMdx from 'remark-mdx';
-import { serialize } from 'next-mdx-remote/serialize';
+import { timeStamp } from 'console';
 
 export interface UserProps {
-  name: string;
-  username: string;
-  email: string;
-  image: string;
-  bio: string;
-  followers: number;
-  verified: boolean;
+  content: string
+  timestamp: number
+  image?: string
+}
+export interface UserResponse {
+  content: string
+  timestamp: number
+  image?: string
+  _id: string;
 }
 
 export interface ResultProps {
   _id: string;
-  users: UserProps[];
-}
-
-export async function getMdxSource(postContents: string) {
-  // Use remark plugins to convert markdown into HTML string
-  const processedContent = await remark()
-    // Native remark plugin that parses markdown into MDX
-    .use(remarkMdx)
-    .process(postContents);
-
-  // Convert converted html to string format
-  const contentHtml = String(processedContent);
-
-  // Serialize the content string into MDX
-  const mdxSource = await serialize(contentHtml);
-
-  return mdxSource;
+  users: UserResponse[];
 }
 
 export async function getUser(username: string): Promise<UserProps | null> {
@@ -50,64 +34,31 @@ export async function getUser(username: string): Promise<UserProps | null> {
   }
 }
 
-export async function getFirstUser(): Promise<UserProps | null> {
-  const client = await clientPromise;
-  const collection = client.db('test').collection('users');
-  const results = await collection.findOne<UserProps>(
-    {},
-    {
-      projection: { _id: 0, emailVerified: 0 }
-    }
-  );
-  if (results) {
-    return {
-      ...results,
-    };
-  } else {
-    return null;
-  }
-}
-
 export async function getAllUsers(): Promise<ResultProps[]> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
-  return await collection
-    .aggregate<ResultProps>([
-      {
-        //sort by follower count
-        $sort: {
-          followers: -1
-        }
-      },
-      {
-        $limit: 100
-      },
-      {
-        $group: {
-          _id: {
-            $toLower: { $substrCP: ['$name', 0, 1] }
-          },
-          users: {
-            $push: {
-              name: '$name',
-              username: '$username',
-              email: '$email',
-              image: '$image',
-              followers: '$followers',
-              verified: '$verified'
-            }
-          },
-          count: { $sum: 1 }
-        }
-      },
-      {
-        //sort alphabetically
-        $sort: {
-          _id: 1
-        }
+  return await collection.aggregate<ResultProps>([
+    {
+      $group: {
+        _id: 1,
+        users: {
+          $push: {
+            _id: {
+              $toString: '$_id'
+            },
+            content: '$content',
+            timestamp: '$timestamp'
+          }
+        },
+        count: { $sum: 1 }
       }
-    ])
-    .toArray();
+    },
+    {
+      $sort: {
+        _id: 1
+      }
+    }
+  ]).toArray();
 }
 
 export async function searchUser(query: string): Promise<UserProps[]> {
@@ -199,4 +150,11 @@ export async function updateUser(username: string, bio: string) {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
   return await collection.updateOne({ username }, { $set: { bio } });
+}
+
+export async function addUser(data: UserProps) {
+  const client = await clientPromise;
+  const collection = client.db('test').collection('users');
+  console.log(`cccc`, JSON.stringify(data))
+  return await collection.insertOne(data);
 }

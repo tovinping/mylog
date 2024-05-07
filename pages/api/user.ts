@@ -1,7 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { searchUser, updateUser } from 'lib/api/user';
-import { getSession } from 'next-auth/react';
-import { getMdxSource } from 'lib/api/user';
+import type { NextApiRequest, NextApiResponse } from "next";
+import { UserProps, addUser, searchUser } from 'lib/api/user';
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,14 +16,17 @@ export default async function handler(
       });
     }
   } else if (req.method === 'PUT') {
-    const { username, bio } = req.body;
+    const { content } = req.body;
     try {
-      const result = await updateUser(username, bio);
-      if (result) {
-        await res.revalidate(`/${username}`);
+      const user: UserProps = {
+        content,
+        timestamp: Date.now()
       }
-      const bioMdx = await getMdxSource(bio); // return bioMdx to optimistically show updated state
-      return res.status(200).json(bioMdx);
+      const result = await addUser(user);
+      if (result) {
+        await res.revalidate(`/`);
+      }
+      return res.status(200).json({});
     } catch (e: any) {
       console.log(e);
       return res.status(500).json({
