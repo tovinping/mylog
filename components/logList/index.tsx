@@ -31,7 +31,7 @@ function LogItem({ user }: { user: UserResponse }) {
   return <li className={style.listItem}>
     <div>
       <p className={style.time}>{formatDate(user.timestamp)}</p>
-      <p className={style.title}>{user.content}</p>
+      <p className={style.content}>{user.content}</p>
     </div>
     {
       user.image ? <Image src={user.image} alt='' width={50} height={50} /> : null
