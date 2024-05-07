@@ -23,7 +23,7 @@ export const getStaticPaths = async () => {
 
   const results = await getAllUsers();
   const paths = results.flatMap(({ users }) =>
-    users.map((user) => ({ params: { username: user.username } }))
+    users.map((user) => ({ params: { username: user.content } }))
   );
   return {
     paths,
@@ -60,12 +60,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
 
-  const ogUrl = `https://mongodb.vercel.app/${user.username}`;
+  const ogUrl = `https://mongodb.vercel.app/${user.content}`;
   const meta = {
     ...defaultMetaProps,
-    title: `${user.name}'s Profile | MongoDB Starter Kit`,
+    title: `${user.content}'s Profile | MongoDB Starter Kit`,
     ogImage: `https://api.microlink.io/?url=${ogUrl}&screenshot=true&meta=false&embed=screenshot.url`,
-    ogUrl: `https://mongodb.vercel.app/${user.username}`
+    ogUrl: `https://mongodb.vercel.app/${user.content}`
   };
 
   return {
