@@ -10,9 +10,10 @@ import style from './index.module.scss'
 import { Logs } from '@/components/logs';
 import { EditIcon } from '@/components/icons';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home({ results }: { user: UserProps, results: ResultProps[] }) {
-  const [isEdit, setEdit] = useState(false)
+  const router = useRouter()
   return <div className={style.home}>
     <div className={style.title}>
       <span>菜单</span>
@@ -23,7 +24,7 @@ export default function Home({ results }: { user: UserProps, results: ResultProp
     </div>
     <p>全部日志</p>
     <Logs users={results.map(item => item.users).flat(1)} />
-    <div className={style.edit} onClick={() => setEdit(true)}>
+    <div className={style.edit} onClick={() => router.push('/editor')}>
       <EditIcon />
     </div>
   </div>
