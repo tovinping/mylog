@@ -32,7 +32,6 @@ export default function Home({ results }: { user: UserProps, results: ILogProps[
 export const getStaticProps: GetStaticProps = async () => {
 
   const results = await getAllUsers();
-  console.log(results)
   const totalUsers = await getUserCount();
 
   return {
