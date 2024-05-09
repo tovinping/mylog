@@ -1,27 +1,41 @@
-.editor{
+.editor {
   width: 100vw;
   height: 100vh;
   padding: 8vw;
-  transition: all 0.3s linear;
-  background-color: black;
+  overflow: hidden;
 }
-.visible{
+
+.visible {
   bottom: -0;
 }
-.hidden{
+
+.hidden {
   bottom: -100vh;
 }
+
 .title {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4vw;
 }
-.textarea{
-  width: 100%;
-  height: 50vh;
-  background-color: transparent;
-  border: none;
-  outline: none !important;
-  box-shadow: none !important;
-  padding: 0;
+
+.list {
+
+  li>span {
+    margin-right: 2vw;
+  }
+
+  input {
+    background-color: transparent;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #666;
+    color: #fff;
+  }
+}
+.weight,.running,.sitUps{
+  input{
+    width: 40px;
+  }
 }

@@ -8,7 +8,7 @@ import {
 import { defaultMetaProps } from '@/components/layout/meta';
 import style from './index.module.scss'
 import { LogList } from '@/components/logList';
-import { EditIcon } from '@/components/icons';
+import { LoadingDots } from '@/components/icons';
 import { useRouter } from 'next/router';
 
 export default function Home({ results }: { user: UserProps, results: ResultProps[] }) {
@@ -16,16 +16,14 @@ export default function Home({ results }: { user: UserProps, results: ResultProp
   return <div className={style.home}>
     <div className={style.title}>
       <span>菜单</span>
+      <LoadingDots color='#ff0000' />
       <div>
         <span>搜索</span>
-        <span>更多</span>
+        <span onClick={() => router.push('/editor')}>添加</span>
       </div>
     </div>
     <p>全部日志</p>
     <LogList users={results.map(item => item.users).flat(1)} />
-    <div className={style.edit} onClick={() => router.push('/editor')}>
-      <EditIcon />
-    </div>
   </div>
 }
 

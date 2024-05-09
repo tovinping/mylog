@@ -3,7 +3,6 @@ import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
 import { useDebounce } from '@/lib/hooks/use-debounce';
 import { useState } from 'react';
-import { EditIcon, SearchIcon } from '@/components/icons';
 import DirectoryResults from './directory-results';
 import style from './directory.module.scss'
 
@@ -31,13 +30,11 @@ export default function Directory({
         <p>
           共有{totalUsers}条数据
         </p>
-        <EditIcon className={style.editorIcon} />
         </div>
         <form className="py-8 flex space-x-4" action="#">
           <div className="flex-1 min-w-0">
             <div className="relative shadow-sm border-0 border-b-dark-accent-2 rounded-none border-b-[1px] ">
               <div className="absolute bg-black inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <SearchIcon className="h-4 w-4 text-dark-accent-3" />
               </div>
               <input
                 type="search"
