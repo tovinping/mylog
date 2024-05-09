@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { UserResponse } from "@/lib/api/user";
+import { ILogProps } from "@/lib/api/user";
 import style from './index.module.scss'
 
 function formatDate(timestamp = 0) {
@@ -19,22 +18,22 @@ function formatDate(timestamp = 0) {
   }
 }
 
-export function LogList({ users = [] }: { users: UserResponse[] }) {
+export function LogList({ users = [] }: { users: ILogProps[] }) {
   return (
     <ul className={style.list}>
-      {users.map(user => <LogItem user={user} key={user._id} />)}
+      {users.map(user => <LogItem user={user} key={user.cid} />)}
     </ul>
   )
 }
 
-function LogItem({ user }: { user: UserResponse }) {
+function LogItem({ user }: { user: ILogProps }) {
   return <li className={style.listItem}>
     <div>
       <p className={style.time}>{formatDate(user.timestamp)}</p>
-      <p className={style.content}>{user.content}</p>
+      <p className={style.content}>{user.weight}</p>
     </div>
-    {
+    {/* {
       user.image ? <Image src={user.image} alt='' width={50} height={50} /> : null
-    }
+    } */}
   </li>
 }

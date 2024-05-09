@@ -3,7 +3,9 @@ import {
   getAllUsers,
   UserProps,
   getUserCount,
-  ResultProps
+  ResultProps,
+  UserResponse,
+  ILogProps
 } from '@/lib/api/user';
 import { defaultMetaProps } from '@/components/layout/meta';
 import style from './index.module.scss'
@@ -11,7 +13,7 @@ import { LogList } from '@/components/logList';
 import { LoadingDots } from '@/components/icons';
 import { useRouter } from 'next/router';
 
-export default function Home({ results }: { user: UserProps, results: ResultProps[] }) {
+export default function Home({ results }: { user: UserProps, results: ILogProps[] }) {
   const router = useRouter()
   return <div className={style.home}>
     <div className={style.title}>
@@ -23,13 +25,14 @@ export default function Home({ results }: { user: UserProps, results: ResultProp
       </div>
     </div>
     <p>全部日志</p>
-    <LogList users={results.map(item => item.users).flat(1)} />
+    <LogList users={results} />
   </div>
 }
 
 export const getStaticProps: GetStaticProps = async () => {
 
   const results = await getAllUsers();
+  console.log(results)
   const totalUsers = await getUserCount();
 
   return {

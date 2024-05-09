@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { UserProps, addUser, searchUser } from 'lib/api/user';
+import { ILogProps, addLog, getAllUsers } from 'lib/api/user';
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const result = await searchUser(req.query.query as string);
+      const result = await getAllUsers();
       return res.status(200).json(result);
     } catch (e: any) {
       console.log(e);
@@ -15,14 +15,14 @@ export default async function handler(
         error: e.toString()
       });
     }
-  } else if (req.method === 'PUT') {
-    const { content } = req.body;
+  } else if (req.method === 'POST') {
+    const { logData } = req.body
     try {
-      const user: UserProps = {
-        content,
+      const logInfo: ILogProps = {
+        ...logData,
         timestamp: Date.now()
       }
-      const result = await addUser(user);
+      const result = await addLog(logInfo);
       if (result) {
         await res.revalidate(`/`);
       }

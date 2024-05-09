@@ -1,5 +1,4 @@
 import clientPromise from '@/lib/mongodb';
-import { timeStamp } from 'console';
 
 export interface UserProps {
   content: string
@@ -16,6 +15,37 @@ export interface UserResponse {
 export interface ResultProps {
   _id: string;
   users: UserResponse[];
+}
+export interface ILogProps {
+  /**
+   * 体重
+   */
+  weight: string;
+  /**
+   * 早餐
+   */
+  breakfast: string
+  /**
+   * 午餐
+   */
+  lunch: string
+  /*
+   * 晚餐
+   */
+  dinner: string
+  /**
+   * 跑步
+   */
+  running: string
+  /**
+   * 仰卧起坐
+   */
+  sitUps: string
+  /**
+   * 创建时间
+   */
+  timestamp?: number
+  cid?: string
 }
 
 export async function getUser(username: string): Promise<UserProps | null> {
@@ -34,28 +64,28 @@ export async function getUser(username: string): Promise<UserProps | null> {
   }
 }
 
-export async function getAllUsers(): Promise<ResultProps[]> {
+export async function getAllUsers(): Promise<ILogProps[]> {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
-  return await collection.aggregate<ResultProps>([
+  return await collection.aggregate<ILogProps>([
     {
-      $group: {
-        _id: 1,
-        users: {
-          $push: {
-            _id: {
-              $toString: '$_id'
-            },
-            content: '$content',
-            timestamp: '$timestamp'
-          }
-        },
-        count: { $sum: 1 }
+      $sort: {
+        timestamp: -1
       }
     },
     {
-      $sort: {
-        _id: 1
+      $addFields: {
+        cid: {
+          $toString: "$_id"
+        },
+        running123: {
+          $toDouble: "$running"
+        }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
       }
     }
   ]).toArray();
@@ -152,7 +182,7 @@ export async function updateUser(username: string, bio: string) {
   return await collection.updateOne({ username }, { $set: { bio } });
 }
 
-export async function addUser(data: UserProps) {
+export async function addLog(data: ILogProps) {
   const client = await clientPromise;
   const collection = client.db('test').collection('users');
   console.log(`cccc`, JSON.stringify(data))
